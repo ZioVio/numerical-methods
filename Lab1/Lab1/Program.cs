@@ -10,6 +10,11 @@ namespace Lab1
         private static double EPSILON = 1e-7;
         private static int EXIT_METHOD_CODE = -1;
 
+        private static double[] algebraicEquationCoeficcients =
+        {
+            18, 84, -225, -811, 565, 842, -437, -62
+        };
+
         static void Main(string[] args)
         {
             do
@@ -18,21 +23,22 @@ namespace Lab1
                 Console.WriteLine("1. Simplified Newthon Method");
                 Console.WriteLine("2. Bisection method");
                 Console.WriteLine("3. Simple iterations method");
+                Console.WriteLine("4. Lobachevsky method");
                 int method = SafeReadInt();
                 if (method == EXIT_METHOD_CODE)
                 {
                     break;
                 }
-                if (method == int.MinValue || method < 1 || method > 3)
+                if (method == int.MinValue || method < 1 || method > 4)
                 {
                     Console.WriteLine("Imvalid method");
                     continue;
                 }
-                Console.WriteLine("Enter left bound");
+                Console.WriteLine("Enter left bound (ignore for Lobachevsky method)");
                 double a = SafeReadDouble();
-                Console.WriteLine("Enter right bound");
+                Console.WriteLine("Enter right bound (ignore for Lobachevsky method)");
                 double b = SafeReadDouble();
-                if (Double.IsNaN(a) || Double.IsNaN(b))
+                if ((Double.IsNaN(a) || Double.IsNaN(b)) && method != 4)
                 {
                     Console.WriteLine("Invalid bouds");
                     continue;
@@ -43,6 +49,7 @@ namespace Lab1
                     case 1: OnSimplifiedNewthonMethod(f1, a, b); break;
                     case 2: OnBisectionMethod(f2, a, b); break;
                     case 3: OnSimpleIterationsMehtod(f2, a, b); break;
+                    case 4: OnLobachevskyMethod(algebraicEquationCoeficcients); break;
                 }
             } while (true);
         }
@@ -55,6 +62,18 @@ namespace Lab1
         private static double f2(double x)
         {
             return Math.Pow(x, 3) * Math.Cosh(x) + Math.PI - 9 * Math.PI * x;
+        }
+
+        private static double polinom(double x)
+        {
+            double result = 0;
+            for (int i = 0; i < algebraicEquationCoeficcients.Length; i++)
+            {
+                double a = algebraicEquationCoeficcients[i];
+                result += a * Math.Pow(x, algebraicEquationCoeficcients.Length - i - 1);
+            }
+
+            return result;
         }
 
         private static void OnSimplifiedNewthonMethod(UnaryFunc f, double a, double b)
@@ -167,7 +186,7 @@ namespace Lab1
 
                 xNext = phi(xN);
 
-                Console.WriteLine($"Xn+1: {xNext} xn: {xN} iteration:{i}");
+                Console.WriteLine($"Xn+1: {xNext} xn: {xN} iteration: {i}");
 
                 if (stopCriteria(xNext, xN, q))
                 {
@@ -181,6 +200,128 @@ namespace Lab1
 
         }
 
+
+        public static bool LobachevskyStopCriteria(double[] oldKoefs, double[] newKoefs, double presicion) 
+        {
+            for (int i = 0; i < oldKoefs.Length; i++)
+            {
+                double oldCoefSquared = Math.Pow(oldKoefs[i], 2);
+                if (Math.Abs(oldCoefSquared - newKoefs[i]) > presicion)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static double[] normalizeKoefs(double[] array, double normalizationDivider = 100)
+        {
+            double[] res = new double[array.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                res[i] = array[i] / normalizationDivider;
+            }
+            return res;
+        }
+
+        private static Action<UnaryFunc, double, double> SelectMethodToSpecifyRootsFterLobachevsky()
+        {
+            Console.WriteLine("\nSelect method to specify roots after lobachevkiy\n");
+            Console.WriteLine("1. Simplified Newthon Method");
+            Console.WriteLine("2. Bisection method");
+            Console.WriteLine("3. Simple iterations method");
+            int method = SafeReadInt();
+            switch (method)
+            {
+                case 1: return OnSimplifiedNewthonMethod;
+                case 2: return OnBisectionMethod;
+                case 3: return OnSimpleIterationsMehtod;
+                default: return null;
+            }
+        }
+        private static void OnLobachevskyMethod(double[] koefs)
+        {
+            Console.WriteLine("Enter presicion");
+            double presicion = SafeReadDouble();
+            if (Double.IsNaN(presicion))
+            {
+                Console.WriteLine("Invalid presicion");
+                return;
+            }
+
+            var specifyRootsFunc = SelectMethodToSpecifyRootsFterLobachevsky();
+            if (specifyRootsFunc == null)
+            {
+                Console.WriteLine("Select valid method next time");
+                return;
+            }
+
+            int p = 0;
+
+            double[] a = normalizeKoefs(koefs);
+            double[] b = new double[a.Length];
+            bool shouldStop = false;
+
+            while (!LobachevskyStopCriteria(a, b, presicion))
+            {
+                p++;
+                int n = a.Length - 1;
+
+                for (int k = 0; k <= n; k++)
+                {
+                    double sum = 0;
+                    int sign = -1;
+                    for (int j = 1; j <= Math.Min(k, n - k); j++)
+                    {
+                        sum += sign * a[k - j] * a[k + j];
+                        sign = sign < 0 ? 1 : -1;
+                    }
+
+                    double nextB_k = a[k] * a[k] + 2 * sum;
+                    if (double.IsNaN(nextB_k))
+                    {
+                        shouldStop = true;
+                    }
+
+                    b[k] = nextB_k;
+                }
+
+                if (shouldStop)
+                {
+                    break;
+                }
+
+                normalizeKoefs(b).CopyTo(a, 0);
+            }
+
+            double[] roots = new double[a.Length - 1];
+            double power = Math.Pow(2, -p);
+
+            for (int i = 1; i < a.Length; i++)
+            {
+                double root = Math.Pow(a[i] / a[i - 1], power);
+                Console.WriteLine($"p({root})={polinom(root)}");
+
+                if (Math.Abs(polinom(root)) < 20)
+                {
+                    roots[i - 1] = root;
+                }
+                else
+                {
+                    roots[i - 1] = -root;
+                }
+            }
+
+
+            foreach (var root in roots)
+            {
+                Console.WriteLine($"Root->  {root}");
+                specifyRootsFunc(polinom, root - 0.1, root + 0.1);
+            }
+
+        }
+
+
         private static Func<double, double, double, bool> GetSimpleIterationsStopCriteria(double q)
         {
             Func<double, double, double, bool> simpleCriteria = (xnext, xn, q) =>
@@ -190,7 +331,7 @@ namespace Lab1
 
             Func<double, double, double, bool> complexCriteria = (xnext, xn, q) =>
             {
-                return Math.Abs(xnext - xn) <= ((1 - q) / q * EPSILON);
+                return Math.Abs(xnext - xn) <= ((1 - q) / q) * EPSILON;
             };
 
             if (q < 0.5)
