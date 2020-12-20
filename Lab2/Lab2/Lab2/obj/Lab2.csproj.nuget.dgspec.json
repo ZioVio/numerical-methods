@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/andrii_koval/Public/projects/onai/Lab1/Lab1/Lab1.csproj": {}
+    "/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/Lab2.csproj": {}
   },
   "projects": {
-    "/Users/andrii_koval/Public/projects/onai/Lab1/Lab1/Lab1.csproj": {
+    "/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/Lab2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/andrii_koval/Public/projects/onai/Lab1/Lab1/Lab1.csproj",
-        "projectName": "Lab1",
-        "projectPath": "/Users/andrii_koval/Public/projects/onai/Lab1/Lab1/Lab1.csproj",
+        "projectUniqueName": "/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/Lab2.csproj",
+        "projectName": "Lab2",
+        "projectPath": "/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/Lab2.csproj",
         "packagesPath": "/Users/andrii_koval/.nuget/packages/",
-        "outputPath": "/Users/andrii_koval/Public/projects/onai/Lab1/Lab1/obj/",
+        "outputPath": "/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/andrii_koval/.config/NuGet/NuGet.Config"
+          "/Users/andrii_koval/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

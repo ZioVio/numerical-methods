@@ -1,0 +1,12 @@
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/bin/Debug/netcoreapp3.1/Lab2.deps.json
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/bin/Debug/netcoreapp3.1/Lab2.runtimeconfig.json
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/bin/Debug/netcoreapp3.1/Lab2.runtimeconfig.dev.json
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/bin/Debug/netcoreapp3.1/Lab2.dll
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/bin/Debug/netcoreapp3.1/Lab2.pdb
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.csprojAssemblyReference.cache
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.AssemblyInfoInputs.cache
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.AssemblyInfo.cs
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.csproj.CoreCompileInputs.cache
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.dll
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.pdb
+/Users/andrii_koval/Public/projects/onai/Lab2/Lab2/Lab2/obj/Debug/netcoreapp3.1/Lab2.genruntimeconfig.cache
