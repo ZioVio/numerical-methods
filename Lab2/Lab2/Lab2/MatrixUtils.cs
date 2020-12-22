@@ -36,7 +36,8 @@ namespace Lab2
             int rows = m.GetLength(0);
             int cols = m.GetLength(1);
 
-            if (!String.IsNullOrEmpty(name)) {
+            if (!String.IsNullOrEmpty(name))
+            {
                 Console.WriteLine($"Matrix - {name} ".PadRight(numberPrintingLength * cols, '~'));
             }
             for (int i = 0; i < rows; i++)
@@ -53,7 +54,8 @@ namespace Lab2
             Console.WriteLine();
         }
 
-        public static void PrintMatrix(double[] arr, string name = null) {
+        public static void PrintMatrix(double[] arr, string name = null)
+        {
             PrintMatrix(ToMatrix(arr), name);
         }
 
@@ -67,7 +69,8 @@ namespace Lab2
             return matrix;
         }
 
-        public static double[,] CopyMatrix(double[,] src) {
+        public static double[,] CopyMatrix(double[,] src)
+        {
             return CreateMatrix(src.GetLength(0), src.GetLength(1), (i, j) => src[i, j]);
         }
         public static double[,] Transpose(double[,] m)
@@ -97,7 +100,8 @@ namespace Lab2
             PrintMatrix(ToMatrix(arr));
         }
 
-        public static double[,] CreateMatrix(int rows, int cols) {
+        public static double[,] CreateMatrix(int rows, int cols)
+        {
             return new double[rows, cols];
         }
 

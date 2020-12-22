@@ -8,7 +8,7 @@ namespace Lab2
 
         public readonly string Name;
 
-        protected int N;
+        protected readonly int N;
 
         public Method(double[,] A, double[] B, string name) {
             this.A = A;

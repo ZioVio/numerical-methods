@@ -53,9 +53,35 @@ namespace Lab2
             -215,
             394
         };
+
+        public static double[,] matrix3 = new double[,] {
+            {-327,106,0,0,0,0,0,0,0,0},
+            {-104,-512,92,0,0,0,0,0,0,0},
+            {0,-5,56,6,0,0,0,0,0,0},
+            {0,0,42,501,26,0,0,0,0,0},
+            {0,0,0,2,167,-70,0,0,0,0},
+            {0,0,0,0,218,439,-64,0,0,0},
+            {0,0,0,0,0,-145,943,365,0,0},
+            {0,0,0,0,0,0,-8,-91,-26,0},
+            {0,0,0,0,0,0,0,-143,-749,169},
+            {0,0,0,0,0,0,0,0,219,566},
+        };
+
+        public static double[] b3 = new double[] {
+            -981,
+            687,
+            845,
+            542,
+            -915,
+            -244,
+            409,
+            459,
+            -552,
+            -462
+        };
         // LU with 1's in L - DONE
         // TR-метод обертань - DONE без детерминанта и А^-1
-        // метод квадратних коренів - метод холецького
+        // метод квадратних коренів - метод холецького DONE
         // прямий метод?
         // метод прогонки
         // прямий метод?
@@ -66,14 +92,16 @@ namespace Lab2
                         { -7, 11, 18 } };
             double[] sampleB = new double[] { 12, 17, 5 };
 
-            var LU = new LUMethod(matrix1, b1);
+            var LU = new LUMethod(matrix3, b3);
             var TR = new TRMethod(matrix1, b1);
             var Holetsky = new HoletskyMethod(matrix2, b2);
+            var Tomas = new TomasMethod(matrix3, b3);
 
             var methods = new Method[] { 
-                // LU, 
+                LU, 
                 // TR, 
-                Holetsky 
+                // Holetsky
+                Tomas
             };
 
             foreach (var method in methods)
